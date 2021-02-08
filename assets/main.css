@@ -189,7 +189,7 @@ form{
   border-radius: 15px;
   border: 1px solid gray;
   transition: 1.2s all;
-  animation: expand .8s ease-in;
+  animation: expand .5s ease-in;
  
 }
 .green{
