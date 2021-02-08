@@ -126,6 +126,7 @@ function createBox(book,ix){
     </div>`;
     currentDiv = document.querySelector('.item');
     mainContainer.insertBefore(newDiv, currentDiv);
+    containerChange();
     exes = document.querySelectorAll('.fa-times');
     exes.forEach(x => x.addEventListener('click', handleDeletes));
     readBtns = document.querySelectorAll('.readStatus');
@@ -165,30 +166,35 @@ function regenerateList(list){
   })
   
 }
-
-function modeChange(){
-  body.classList.toggle('light');
-  lightmode = !lightmode
-  // console.log(lightMode)
+function containerChange(){
   let divContent = document.querySelectorAll('.bookInfo');
   let divs = document.querySelectorAll('.item');
   if(lightmode){
     divContent.forEach(div => div.style.backgroundColor='white');
     divs.forEach(div => div.style.border='1px solid black');
-    topContainer.style.backgroundColor='white'
-    logoText.style.color='#202124'
     divContent.forEach(div => div.style.color='#202124');
-    btnContainer.style.filter='invert(1)'
   }else{
     divContent.forEach(div => div.style.backgroundColor='#202124');
     divs.forEach(div => div.style.border='1px solid gray');
+    divContent.forEach(div => div.style.color='white');
+  }
+}
+function bodyChange(){
+  if(lightmode){
+    topContainer.style.backgroundColor='white'
+    logoText.style.color='#202124'
+    btnContainer.style.filter='invert(1)'
+  }else{
     topContainer.style.backgroundColor='#202124'
     logoText.style.color='white'
     btnContainer.style.filter='invert(0)'
-    divContent.forEach(div => div.style.color='white');
   }
-  
-
+}
+function modeChange(){
+  body.classList.toggle('light');
+  lightmode = !lightmode
+  containerChange();
+  bodyChange();
 }
 
 // EVENT LISTENERS
