@@ -28,6 +28,7 @@ function  handleSubmit(e){
       newBook = createBook(titleInput.value, authorInput.value,
       Number(pagesInput.value), readBtn.checked);
       reset();
+      createBox(newBook)
       library.push(newBook);
       console.table(library);
       togFormDrawer();
@@ -101,10 +102,19 @@ function createBook(title, author, pages, readStatus){
 
 }
 
-function createBoxes(){
+function createBox(book){
+
     const newDiv = document.createElement("div");
     newDiv.classList.add('item')
-    newDiv.innerHTML = "<div id = 'xHolder'><i class='fas fa-times fa-lg'></i></div>";
+    newDiv.innerHTML = `
+    <div id = 'xHolder'>
+      <i class='fas fa-times fa-lg'></i>
+    </div>
+    <div class = 'bookInfo'>
+      <p><span class = 'titleBook'>${newBook.title}</span><br>
+      ${newBook.author}<br>
+      <span class = 'pages'> ${newBook.numOfPages} pages</span></p>
+    </div>`;
     currentDiv = document.querySelector('.item');
     mainContainer.insertBefore(newDiv, currentDiv);
     let exes = document.querySelectorAll('.fa-times');
@@ -117,6 +127,6 @@ function handleDeletes(e){
 }
 
 // EVENT LISTENERS
-sun.addEventListener('click', createBoxes);
+sun.addEventListener('click', createBox);
 adder.addEventListener('click', togFormDrawer)
 submit.addEventListener('click', handleSubmit)
