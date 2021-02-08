@@ -120,7 +120,7 @@ function createBox(book,ix){
     newDiv.setAttribute("data-ix", ix)
     newDiv.innerHTML = `
     <div id = 'xHolder'>
-      <i class='fas fa-times fa-lg'></i>
+      <i class='fas fa-times fa-sm'></i>
     </div>
     <div class = 'bookInfo'>
       <p id = 'boxContent'><span class = 'titleBook'>${book.title}</span><br>

@@ -184,7 +184,7 @@ form{
   margin-right:15px;
   margin-left:15px;
   margin-bottom: 50px;
-  height:250px;
+  height:210px;
   width: 320px;
   border-radius: 15px;
   border: 1px solid gray;
@@ -213,12 +213,11 @@ form{
 #xHolder{
   position: relative;
   top: 0;
-
   height: 7%;
   display: flex;
   justify-content: flex-end;
   padding-right:10px;
-  padding-top:5px;
+  padding-top:3px;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   border-bottom: 1px gray solid;
@@ -257,15 +256,15 @@ form{
 .bookInfo{
   word-wrap: break-word;
   padding-left: 5%;
+  padding-right: 5%;
   color:white;
-  height: 90.6%;
+  height: 91.1%;
   border-bottom-left-radius: 13px;
   border-bottom-right-radius: 13px;
-  font-size: 30px;
+  font-size: 25px;
   display:flex;
   align-items: flex-start;
   transition: 1s all;
   background-color: #202124; 
-
   font-family: 'Chivo';
 }
