@@ -55,7 +55,6 @@ function validateForm(e){
         authorInput.style.backgroundColor = '#202124'
         console.log('DONE')
         return true;
-
       }
       if(title === ''){
         titleInput.style.backgroundColor = 'red'
@@ -74,7 +73,8 @@ function validateForm(e){
       }
     return false;
 }
-//Book logic
+
+//Book Object
 const Book = {
     init: function(title, author, numOfPages, readStatus){
         this.title = title;
@@ -96,22 +96,26 @@ const Book = {
 function createBook(title, author, pages, readStatus){
   let newBook = Object.create(Book);
   newBook.init(title, author, pages, readStatus);
+  console.log(newBook.info());
   return newBook;
+
 }
-// <div class="item">
-  // <div id = 'xHolder'>
-  //   <i class="fas fa-times fa-lg"></i>
-  // </div>
-// </div>
+
 function createBoxes(){
     const newDiv = document.createElement("div");
     newDiv.classList.add('item')
     newDiv.innerHTML = "<div id = 'xHolder'><i class='fas fa-times fa-lg'></i></div>";
     currentDiv = document.querySelector('.item');
-
     mainContainer.insertBefore(newDiv, currentDiv);
-
+    let exes = document.querySelectorAll('.fa-times');
+    exes.forEach(x => x.addEventListener('click', handleDeletes));
 }
+
+function handleDeletes(e){
+  let trashDiv = e.target.parentNode.parentNode;
+  trashDiv.remove();
+}
+
 // EVENT LISTENERS
 sun.addEventListener('click', createBoxes);
 adder.addEventListener('click', togFormDrawer)
