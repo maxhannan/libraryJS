@@ -30,7 +30,7 @@ input::-webkit-inner-spin-button {
 }
 
 .active{
-  height:20vh;
+  height:25vh;
 }
 
 #titleBar{
@@ -84,7 +84,7 @@ form{
   display: flex;
   align-items: center;
   width: 93%;
-  margin-top: 2.5vh;
+  margin-top: 4.5vh;
 }
 
 .inputs{
@@ -217,16 +217,25 @@ form{
   color:white;
 
 }
-p{
-  margin:0;
-  padding-bottom: 10%;
-}
+
 .titleBook{
   font-size: 40px;
 }
 .pages{
   font-size: 20px;
 }
+.readStatus{
+  font-size: 15px;
+  border:1px solid gray;
+  padding: 5px;
+  border-radius: 5px;
+  color:gray;
+}
+.readStatus:hover{
+  border:1px solid white;
+  color: white;
+}
+
 .bookInfo{
   padding-left: 5%;
   color:white;
@@ -235,6 +244,7 @@ p{
   border-bottom-right-radius: 15px;
   font-size: 30px;
   display:flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 10px;
   font-family: 'Chivo';
 }

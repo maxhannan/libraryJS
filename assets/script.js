@@ -16,10 +16,12 @@ let library = [];
 function togFormDrawer(){
   topContainer.classList.toggle('active')
 }
+
 // TOGGLE BUTTON
 function change_state(obj){
   obj.parentNode.classList.toggle("checked");
 }
+
 // SUBMIT BUTTON
 function  handleSubmit(e){
   e.preventDefault();
@@ -43,8 +45,8 @@ function reset(){
     change_state(readBtn);
     readBtn.checked = false;
   }
-
 }
+
 // FORM VALIDATION
 function validateForm(e){
       const title = titleInput.value;
@@ -99,26 +101,30 @@ function createBook(title, author, pages, readStatus){
   newBook.init(title, author, pages, readStatus);
   console.log(newBook.info());
   return newBook;
-
 }
 
 function createBox(book){
-
     const newDiv = document.createElement("div");
     newDiv.classList.add('item')
+    if(book.readStatus){
+      newDiv.classList.add('green')
+    }
     newDiv.innerHTML = `
     <div id = 'xHolder'>
       <i class='fas fa-times fa-lg'></i>
     </div>
     <div class = 'bookInfo'>
-      <p><span class = 'titleBook'>${newBook.title}</span><br>
+      <p id = 'boxContent'><span class = 'titleBook'>${newBook.title}</span><br>
       ${newBook.author}<br>
-      <span class = 'pages'> ${newBook.numOfPages} pages</span></p>
+      <span class = 'pages'> ${newBook.numOfPages} pages</span><br>
+      <span class = 'readStatus'>${book.readStatus ? 'read' : 'not read'}</span></p>
     </div>`;
     currentDiv = document.querySelector('.item');
     mainContainer.insertBefore(newDiv, currentDiv);
-    let exes = document.querySelectorAll('.fa-times');
+    exes = document.querySelectorAll('.fa-times');
     exes.forEach(x => x.addEventListener('click', handleDeletes));
+    readBtns = document.querySelectorAll('.readStatus');
+    readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
 }
 
 function handleDeletes(e){
@@ -126,7 +132,21 @@ function handleDeletes(e){
   trashDiv.remove();
 }
 
+function handleReadChanges(e){
+  let target = e.target.parentNode.parentNode.parentNode;
+  if(e.target.innerHTML==='read'){
+    e.target.innerHTML = 'not read';
+  }else{
+    e.target.innerHTML = 'read';
+  }
+  target.classList.toggle('green');
+}
+
 // EVENT LISTENERS
+let exes = document.querySelectorAll('.fa-times');
+exes.forEach(x => x.addEventListener('click', handleDeletes));
+let readBtns = document.querySelectorAll('.readStatus');
+readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
 sun.addEventListener('click', createBox);
 adder.addEventListener('click', togFormDrawer)
 submit.addEventListener('click', handleSubmit)
