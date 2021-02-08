@@ -14,17 +14,34 @@
     </head>
     <body>
 
-        <div id="topContainer">
-            <div id="titleBar">
-              
-            </div>
-            <div id="formContainer">
-                <form action="">
+        <div class="topContainer" id="topContainer">
 
+            <div id="titleBar">
+              <div id="logoText">
+                <p>my library</p>
+              </div>
+              <div id="btnContainer">
+                <input  id = 'adder' type="image" src="assets/img/adderWhite.png"/>
+                 <input  id = 'adder' type="image" src="assets/img/lightMode.png"/>
+              </div>
+            </div>
+
+            <div id="formContainer">
+                <form id ='formy' action="">
+                  <br>
+                  <input type="text" id="title" class = 'inputs' placeholder="title">
+                  <input type="text" class = 'inputs' id="author"  placeholder="author">
+                  <input type="number" class = 'inputs' id="pages" placeholder="pages">
+                  <label  id = 'read' class="input-check"><input onchange="change_state(this)" type="checkbox" id = 'readBtn'/> read? </label>
+                  <input type="submit" id ='submit' class = 'submit' value="Submit">
                 </form>
             </div>
+
         </div>
 
+        <div id="mainContainer">
+
+        </div>
 
         <script src="assets/script.js" async defer></script>
     </body>

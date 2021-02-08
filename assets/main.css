@@ -1,24 +1,153 @@
+@import url('https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:300,700i&display=swap');
+
+
 body{
   background-color: #202124;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin: 0;
 }
 
-#topContainer{
+.light{
+    background-color: white;
+}
 
-  height:100%;
+.topContainer{
+  height:8vh;
   width: 100vw;
   border-bottom: gray solid 1px;
+  overflow: hidden;
+  transition: height 1s;
+}
+
+.active{
+  height:20vh;
 }
 
 #titleBar{
   height: 8vh;
-  /* background-color: red; */
+  display: flex;
+  justify-content: flex-start;
+}
+
+#logoText{
+  color: white;
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+  font-family: 'Chivo';
+  font-size: 2.5vw;
+  font-weight: 300;
+}
+
+#btnContainer{
+  margin-left: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: 50px;
+  width: 10%;
+}
+
+#adder{
+  height:50%;
+  opacity: .5;
+  transition: .2s all;
+}
+
+#adder:hover{
+  opacity: 1;
 }
 
 #formContainer{
-  height:26vh;
-  background-color: blue;
-  display: none;
+  height:12vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+form{
+  display: flex;
+  align-items: center;
+  width: 93%;
+  margin-top: 2.5vh;
+}
+
+.inputs{
+  background-color: #202124;
+  color: white;
+  border: gray solid 1px;
+  font-size: 2.5vw;
+  height: 50px;
+  width: 100%;
+  padding-left: 1%;
+  font-family: 'Chivo'
+}
+
+#title{
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+#pages{
+  width: 30%;
+  padding-left: .5%;
+}
+.submit{
+  background-color: #202124;
+  color: white;
+  border: 1px gray solid;
+  height: 54px;
+  width: 30%;
+  font-family: 'Chivo';
+  color: gray;
+  font-size: 2.5vw;
+  transition: .5s all;
+  border-top-right-radius:25px;
+  border-bottom-right-radius: 25px;
+}
+
+.submit:hover{
+  border: 1px white solid;
+}
+
+.submit:active{
+  background:lightgreen;
+}
+
+/* this is the style of an uncheked "button" */
+.input-check{
+    display:inline-block;
+    background-color: #202124;
+    color: white;
+    border: 1px gray solid;
+    font-family: 'Chivo';
+    font-size: 2.5vw;
+    height: 52px;
+    width: 30%;
+    color: gray;
+    transition: .5s all;
+    transition: background-color 1s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-check:hover{
+  transition: .5s all;
+  border: 1px white solid;
+}
+/* This is the style for a checked "button" */
+.input-check.checked{
+    background:lightgreen;
+    color:white;
+}
+/* Hide the checkbox */
+.input-check input{
+    display:none
+}
+
+#mainContainer{
+  height: 100vh;
 }
