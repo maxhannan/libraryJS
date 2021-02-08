@@ -1,6 +1,10 @@
+const body = document.querySelector('body')
 const adder = document.querySelector('#adder')
 const topContainer = document.querySelector('#topContainer')
+const logoText = topContainer.querySelector('#logoText')
+const btnContainer = topContainer.querySelector('#btnContainer');
 const mainContainer = document.querySelector('#mainContainer')
+
 const form = document.querySelector('#formy')
 const titleInput = form.querySelector('#title')
 const authorInput = form.querySelector('#author')
@@ -8,10 +12,7 @@ const pagesInput = form.querySelector('#pages')
 const readBtn = form.querySelector('#readBtn')
 const submit = form.querySelector('#submit')
 const sun = document.querySelector('#sun');
-
-// LIBRARY ARRAY
-let library = [];
-
+let lightmode = false;
 // OPENS AND CLOSES FORM DRAWER
 function togFormDrawer(){
   topContainer.classList.toggle('active')
@@ -30,9 +31,11 @@ function  handleSubmit(e){
       newBook = createBook(titleInput.value, authorInput.value,
       Number(pagesInput.value), readBtn.checked);
       reset();
-      createBox(newBook)
       library.push(newBook);
       console.table(library);
+      localStorage.setItem('library', JSON.stringify(library));
+      let ix = library.indexOf(newBook);
+      createBox(newBook,ix)
       togFormDrawer();
   }
 }
@@ -103,20 +106,22 @@ function createBook(title, author, pages, readStatus){
   return newBook;
 }
 
-function createBox(book){
+function createBox(book,ix){
     const newDiv = document.createElement("div");
     newDiv.classList.add('item')
+    
     if(book.readStatus){
       newDiv.classList.add('green')
     }
+    newDiv.setAttribute("data-ix", ix)
     newDiv.innerHTML = `
     <div id = 'xHolder'>
       <i class='fas fa-times fa-lg'></i>
     </div>
     <div class = 'bookInfo'>
-      <p id = 'boxContent'><span class = 'titleBook'>${newBook.title}</span><br>
-      ${newBook.author}<br>
-      <span class = 'pages'> ${newBook.numOfPages} pages</span><br>
+      <p id = 'boxContent'><span class = 'titleBook'>${book.title}</span><br>
+      ${book.author}<br>
+      <span class = 'pages'> ${book.numOfPages} pages</span><br>
       <span class = 'readStatus'>${book.readStatus ? 'read' : 'not read'}</span></p>
     </div>`;
     currentDiv = document.querySelector('.item');
@@ -125,21 +130,65 @@ function createBox(book){
     exes.forEach(x => x.addEventListener('click', handleDeletes));
     readBtns = document.querySelectorAll('.readStatus');
     readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
-}
+  }
 
 function handleDeletes(e){
   let trashDiv = e.target.parentNode.parentNode;
+  trashDiv.classList.add('horizTranslate');
+  library.splice(trashDiv.dataset.ix, 1);
+  localStorage.setItem('library', JSON.stringify(library));
   trashDiv.remove();
+  regenerateList(library);
 }
 
 function handleReadChanges(e){
   let target = e.target.parentNode.parentNode.parentNode;
   if(e.target.innerHTML==='read'){
     e.target.innerHTML = 'not read';
+    library[target.dataset.ix]["readStatus"] = false;
   }else{
     e.target.innerHTML = 'read';
+    library[target.dataset.ix]["readStatus"] = true;
   }
+  console.log(library[target.dataset.ix])
+  localStorage.setItem('library', JSON.stringify(library));
   target.classList.toggle('green');
+}
+
+function regenerateList(list){
+  mainContainer.innerHTML = '';
+  list.forEach(book =>{
+    let ix = library.indexOf(book);
+    console.log(ix);
+    console.log(book);
+    createBox(book,ix);
+  })
+  
+}
+
+function modeChange(){
+  body.classList.toggle('light');
+  lightmode = !lightmode
+  // console.log(lightMode)
+  let divContent = document.querySelectorAll('.bookInfo');
+  let divs = document.querySelectorAll('.item');
+  if(lightmode){
+    divContent.forEach(div => div.style.backgroundColor='white');
+    divs.forEach(div => div.style.border='1px solid black');
+    topContainer.style.backgroundColor='white'
+    logoText.style.color='#202124'
+    divContent.forEach(div => div.style.color='#202124');
+    btnContainer.style.filter='invert(1)'
+  }else{
+    divContent.forEach(div => div.style.backgroundColor='#202124');
+    divs.forEach(div => div.style.border='1px solid gray');
+    topContainer.style.backgroundColor='#202124'
+    logoText.style.color='white'
+    btnContainer.style.filter='invert(0)'
+    divContent.forEach(div => div.style.color='white');
+  }
+  
+
 }
 
 // EVENT LISTENERS
@@ -147,6 +196,11 @@ let exes = document.querySelectorAll('.fa-times');
 exes.forEach(x => x.addEventListener('click', handleDeletes));
 let readBtns = document.querySelectorAll('.readStatus');
 readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
-sun.addEventListener('click', createBox);
+sun.addEventListener('click', modeChange);
 adder.addEventListener('click', togFormDrawer)
 submit.addEventListener('click', handleSubmit)
+
+// LIBRARY ARRAY
+let library = JSON.parse(localStorage.getItem('library')) || [];
+regenerateList(library);
+
