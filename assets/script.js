@@ -4,7 +4,6 @@ const topContainer = document.querySelector('#topContainer')
 const logoText = topContainer.querySelector('#logoText')
 const btnContainer = topContainer.querySelector('#btnContainer');
 const mainContainer = document.querySelector('#mainContainer')
-
 const form = document.querySelector('#formy')
 const titleInput = form.querySelector('#title')
 const authorInput = form.querySelector('#author')
@@ -12,7 +11,10 @@ const pagesInput = form.querySelector('#pages')
 const readBtn = form.querySelector('#readBtn')
 const submit = form.querySelector('#submit')
 const sun = document.querySelector('#sun');
+
 let lightmode = false;
+
+// FORM AND HEADER 
 // OPENS AND CLOSES FORM DRAWER
 function togFormDrawer(){
   topContainer.classList.toggle('active')
@@ -40,6 +42,7 @@ function  handleSubmit(e){
   }
 }
 
+// RESETS FORM
 function reset(){
   titleInput.value = '';
   authorInput.value = ''
@@ -52,67 +55,68 @@ function reset(){
 
 // FORM VALIDATION
 function validateForm(e){
-      const title = titleInput.value;
-      const author = authorInput.value;
-      const pages = pagesInput.value;
-      if(!(title === '')&&!(author === '')&& !(pages==='')){
-        pagesInput.style.backgroundColor = '#202124'
-        titleInput.style.backgroundColor = '#202124'
-        authorInput.style.backgroundColor = '#202124'
-        console.log('DONE')
-        return true;
-      }
-      if(title === ''){
-        titleInput.style.backgroundColor = 'red'
-      }else{
-        titleInput.style.backgroundColor = '#202124'
-      }
-      if(author === ''){
-        authorInput.style.backgroundColor = 'red'
-      }else{
-        authorInput.style.backgroundColor = '#202124'
-      }
-      if(pages === ''){
-        pagesInput.style.backgroundColor = 'red'
-      }else{
-        pagesInput.style.backgroundColor = '#202124'
-      }
-    return false;
+  const title = titleInput.value;
+  const author = authorInput.value;
+  const pages = pagesInput.value;
+  if(!(title === '')&&!(author === '')&& !(pages==='')){
+    pagesInput.style.backgroundColor = '#202124'
+    titleInput.style.backgroundColor = '#202124'
+    authorInput.style.backgroundColor = '#202124'
+    console.log('DONE')
+    return true;
+  }
+  if(title === ''){
+    titleInput.style.backgroundColor = 'red'
+  }else{
+    titleInput.style.backgroundColor = '#202124'
+  }
+  if(author === ''){
+    authorInput.style.backgroundColor = 'red'
+  }else{
+    authorInput.style.backgroundColor = '#202124'
+  }
+  if(pages === ''){
+    pagesInput.style.backgroundColor = 'red'
+  }else{
+    pagesInput.style.backgroundColor = '#202124'
+  }
+  return false;
 }
 
 //Book Object
 const Book = {
-    init: function(title, author, numOfPages, readStatus){
-        this.title = title;
-        this.numOfPages = numOfPages;
-        this.author = author;
-        this.readStatus = readStatus;
-    },
-    info: function(){
-        let readStr;
-        if(this.readStatus){
-            readStr = "Read"
-        }else{
-            readStr = "Not read yet"
-        }
-        return `${this.title} by ${this.author}, ${this.numOfPages} pages, ${readStr}.`;
+  init: function(title, author, numOfPages, readStatus){
+    this.title = title;
+    this.numOfPages = numOfPages;
+    this.author = author;
+    this.readStatus = readStatus;
+  },
+  info: function(){
+    let readStr;
+    if(this.readStatus){
+      readStr = "Read"
+    }else{
+      readStr = "Not read yet"
     }
+    return `${this.title} by ${this.author}, ${this.numOfPages} pages, ${readStr}.`;
+  }
 }
-
+// CREATES AND INITIALIZES NEW BOOK
 function createBook(title, author, pages, readStatus){
   let newBook = Object.create(Book);
   newBook.init(title, author, pages, readStatus);
   console.log(newBook.info());
   return newBook;
 }
-
+// CREATES BOX DIVS FOR DOM
 function createBox(book,ix){
     const newDiv = document.createElement("div");
     newDiv.classList.add('item')
-    
+    // ADDS GREEN READ CLASS IF READ
     if(book.readStatus){
       newDiv.classList.add('green')
     }
+    // DATA ATT CORRESPONDS TO INDEX IN LIBRARY
     newDiv.setAttribute("data-ix", ix)
     newDiv.innerHTML = `
     <div id = 'xHolder'>
@@ -133,6 +137,7 @@ function createBox(book,ix){
     readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
   }
 
+// HANDLES DELETE OF DOM OBJECTS
 function handleDeletes(e){
   let trashDiv = e.target.parentNode.parentNode;
   trashDiv.classList.add('horizTranslate');
@@ -142,6 +147,7 @@ function handleDeletes(e){
   regenerateList(library);
 }
 
+// HANDLES CHANGES TO READ STATUS OF BOOKS
 function handleReadChanges(e){
   let target = e.target.parentNode.parentNode.parentNode;
   if(e.target.innerHTML==='read'){
@@ -156,6 +162,7 @@ function handleReadChanges(e){
   target.classList.toggle('green');
 }
 
+// FULLY REGENERATES LIBRARY TO DOM
 function regenerateList(list){
   mainContainer.innerHTML = '';
   list.forEach(book =>{
@@ -164,8 +171,8 @@ function regenerateList(list){
     console.log(book);
     createBox(book,ix);
   })
-  
 }
+// DARK MODE AND LIGHT MODE
 function containerChange(){
   let divContent = document.querySelectorAll('.bookInfo');
   let divs = document.querySelectorAll('.item');
