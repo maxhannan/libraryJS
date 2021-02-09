@@ -186,6 +186,7 @@ function containerChange(){
     divContent.forEach(div => div.style.color='white');
   }
 }
+
 function bodyChange(){
   if(lightmode){
     topContainer.style.backgroundColor='white'
@@ -210,10 +211,11 @@ exes.forEach(x => x.addEventListener('click', handleDeletes));
 let readBtns = document.querySelectorAll('.readStatus');
 readBtns.forEach(btn => btn.addEventListener('click', handleReadChanges));
 sun.addEventListener('click', modeChange);
-adder.addEventListener('click', togFormDrawer)
-submit.addEventListener('click', handleSubmit)
+adder.addEventListener('click', togFormDrawer);
+submit.addEventListener('click', handleSubmit);
+
+
 
 // LIBRARY ARRAY
 let library = JSON.parse(localStorage.getItem('library')) || [];
 regenerateList(library);
-

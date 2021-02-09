@@ -176,8 +176,6 @@ form{
   flex-basis: 33.3333%;
   margin-top:8vw;
   justify-content: center;
-
-
 }
 
 .mainContainer .item {
@@ -190,23 +188,16 @@ form{
   border: 1px solid gray;
   transition: 1.2s all;
   animation: expand .5s ease-in;
- 
 }
+
 .green{
   background-color: lightgreen;
 }
+
 @keyframes expand {
   from {
     opacity: 0%;
     height:0%;
-  }
-}
-@keyframes minimize{
-  from{
-    scale: 1;
-  }
-  to{
-    scale: 0;
   }
 }
 
